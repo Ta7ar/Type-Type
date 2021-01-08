@@ -20,7 +20,7 @@ const saveData = (wpm, cpm) => {
     }
   });
 
-  Cpm.findOne({ wpm }, async function (err, cpmDoc) {
+  Cpm.findOne({ cpm }, async function (err, cpmDoc) {
     if (err) throw err;
     if (!cpmDoc) {
       //Document does not exist, create it
@@ -33,7 +33,7 @@ const saveData = (wpm, cpm) => {
       try {
         //if we find a document, increment its frequency count
         cpmDoc.frequency += 1;
-        await pmDoc.save();
+        await cpmDoc.save();
       } catch (error) {
         throw error;
       }
@@ -43,8 +43,8 @@ const saveData = (wpm, cpm) => {
 
 const getData = async () => {
   try {
-    const wpmArr = await Wpm.find({}, "wpm frequency").sort("wpm").exec();
-    const cpmArr = await Cpm.find({}, "cpm frequency").sort("cpm").exec();
+    const wpmArr = await Wpm.find({}, "wpm frequency -_id").sort("wpm").exec();
+    const cpmArr = await Cpm.find({}, "cpm frequency -_id").sort("cpm").exec();
     return { wpmArr, cpmArr };
   } catch (error) {
     console.error(error);

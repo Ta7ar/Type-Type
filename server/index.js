@@ -2,6 +2,7 @@ const http = require("http");
 const url = require("url");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const { saveData, getData } = require("./controller");
 dotenv.config();
 
@@ -23,17 +24,47 @@ const server = http.createServer(async (req, res) => {
 
   if (pathname === "/api/data" && req.method === "GET") {
     //send data to frontend
-    const wpmArr = await getData();
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(wpmArr));
+    try {
+      const data = await getData();
+      //payload is foo bar cause i got nothing to send in a payload
+      const token = jwt.sign({ foo: "bar" }, process.env.TOKEN_SECRET, {
+        expiresIn: "0.5h",
+      });
+      res.setHeader("auth-token", token);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(data));
+    } catch (error) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error }));
+    }
   } else if (pathname === "/api/data" && req.method === "POST") {
+    //verify token
+    const token = req.headers["auth-token"];
+    //token is not present
+    if (!token) {
+      res.writeHead(401, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Unauthorized Action" }));
+    }
+    //throws error if token is invalid
+    try {
+      jwt.verify(token, process.env.TOKEN_SECRET);
+    } catch (error) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Invalid Token" }));
+    }
+    //get body data
     const body = await bodyParser(req);
     const { wpm, cpm } = body;
 
-    saveData(wpm, cpm);
-
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ wpm, cpm }));
+    //save the data
+    try {
+      saveData(wpm, cpm);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ wpm, cpm }));
+    } catch (error) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error }));
+    }
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Invalid API call" }));
