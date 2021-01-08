@@ -2,7 +2,7 @@ const http = require("http");
 const url = require("url");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const { saveData } = require("./controller");
+const { saveData, getData } = require("./controller");
 dotenv.config();
 
 mongoose
@@ -23,8 +23,9 @@ const server = http.createServer(async (req, res) => {
 
   if (pathname === "/api/data" && req.method === "GET") {
     //send data to frontend
+    const wpmArr = await getData();
     res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Under Construction" }));
+    res.end(JSON.stringify(wpmArr));
   } else if (pathname === "/api/data" && req.method === "POST") {
     const body = await bodyParser(req);
     const { wpm, cpm } = body;

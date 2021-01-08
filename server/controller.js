@@ -40,4 +40,14 @@ const saveData = (wpm, cpm) => {
     }
   });
 };
-module.exports = { saveData };
+
+const getData = async () => {
+  try {
+    const wpmArr = await Wpm.find({}, "wpm frequency").sort("wpm").exec();
+    const cpmArr = await Cpm.find({}, "cpm frequency").sort("cpm").exec();
+    return { wpmArr, cpmArr };
+  } catch (error) {
+    console.error(error);
+  }
+};
+module.exports = { saveData, getData };
