@@ -45,7 +45,7 @@ function App() {
   return (
     <React.Fragment>
       <Navbar light color="light">
-        <NavbarBrand>Typing Stats</NavbarBrand>
+        <NavbarBrand>Type Type</NavbarBrand>
         <Nav className="mr-auto" navbar>
           <NavItem>
             <NavLink href="https://github.com/Ta7ar/Typing-Stats">
