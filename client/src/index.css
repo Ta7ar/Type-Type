@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.input-form {
+  height: 75px;
+  width: 800px;
+  max-width: 95vw;
+  margin: 50px auto 0px;
+  text-align: center;
+  line-height: 75px;
+  overflow: hidden;
+  display: flex;
+  font-size: 1.75rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 60px #d5d5d5;
+}
+.input-field-wrapper {
+  width: 50%;
+  text-align: right;
+}
+.input-field {
+  display: inline;
+  text-align: right;
+  float: right;
+  min-width: 1px;
+  color: green;
+  white-space: nowrap;
+}
+.words-list {
+  width: 50%;
+  text-align: left;
+}
+.input-field:focus {
+  outline: none;
+}
+
+.word {
+  padding-right: 10px;
+}
+.wrong {
+  text-decoration: line-through crimson;
+  color: crimson;
+}
+.completed {
+  color: grey;
+  text-align: right;
+  white-space: nowrap;
+}
+.completed-wrong {
+  text-decoration: line-through grey;
+  color: grey;
+  text-align: right;
+  white-space: nowrap;
+}
+
+::selection {
+  color: orange;
+}
+
+* {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.stat-board {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.stat {
+  width: 100px;
+  height: 100px;
+  border-radius: 25px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 60px #d5d5d5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 h4 p {
+  margin: 0 auto;
+}
+
+p {
+  text-align: center;
+}
+
+.chart {
+  width: 800px;
+  height: 400px;
+  max-width: 95vw;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0px 0px 60px #d5d5d5;
+}
