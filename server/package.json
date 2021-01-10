@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon index.js",
+    "start": "npm install && node index.js"
   },
   "author": "Imon Tatar",
   "license": "MIT",
@@ -13,7 +14,6 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.10"
   }
 }

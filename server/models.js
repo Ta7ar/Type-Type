@@ -13,15 +13,6 @@ const wpmSchema = new Schema(
   { versionKey: false }
 );
 
-const cpmSchema = new Schema(
-  {
-    cpm: { type: Number, required: true, unique: true },
-    frequency: { type: Number, required: true },
-  },
-  { versionKey: false }
-);
-
 const Wpm = mongoose.model("Wpm", wpmSchema);
-const Cpm = mongoose.model("Cpm", cpmSchema);
 
-module.exports = { Wpm, Cpm };
+module.exports = { Wpm };
